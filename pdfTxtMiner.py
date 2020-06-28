@@ -4,20 +4,18 @@ from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import PDFPageAggregator
 from pdfminer.layout import LAParams, LTTextBox, LTTextLine
 
-# pull file
+#alternate method of accessing file
 # base_path = "C://some_folder"
 # my_file = os.path.join(base_path + "/" + "test_pdf.pdf")
 # log_file = os.path.join(base_path + "/" + "pdf_log.txt")
+
+# pull file
 fp = open('./aoda.pdf', 'rb')
-
-
-# log_file = 
-
 password = ""
 extracted_text = ""
 
-# parser stores objects from pdf
 # document requests objects from pdf
+# parser stores objects from pdf into document
 parser = PDFParser(fp)
 document = PDFDocument()
 parser.set_document(document)
