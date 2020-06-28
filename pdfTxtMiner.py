@@ -56,7 +56,7 @@ for page in document.get_pages():
 fp.close()
 
 # print (extracted_text.encode("utf-8"))
-			
+# The outfile should be in binary mode.
 with open('./write.txt', "wb") as my_log:
 	my_log.write(extracted_text.encode("utf-8"))
 print("Done !!")
