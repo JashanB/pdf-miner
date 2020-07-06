@@ -7,12 +7,44 @@ from pdfminer.layout import LAParams, LTTextBox, LTTextLine
 #alternate method of accessing file
 # base_path = "C://some_folder"
 # my_file = os.path.join(base_path + "/" + "test_pdf.pdf")
-# log_file = os.path.join(base_path + "/" + "pdf_log.txt")
+# Loop through base_path 
 
+# can make list of pdfs to loop through (read filename, )
+
+listOfFilenames = []
+base_path = "C://some_folder"
+
+# ---------------------------   Loop through files in base_path --------------------------
+# ---------------------------   Append their filenames to list   --------------------------
+for filename in base_path: 
+  if filename.endswith(".pdf"):
+    listOfFilenames.append(filename)
+
+
+# ---------------------------   Loop through listOfFilenames list of filenames --------------------------
+# ---------------------------   Process each pdf file into txt      --------------------------
+# for list in listOfFilename
+# fp = open('./testpdf2.pdf', 'rb')
+# for filename in listOfFilenames:
+#   fp = open(filename, 'rb')
+#   password = ""
+#   extracted_text = ""
+#Process each filename in loop 
+
+# ---------------------------   Create log entry for each processed file --------------------------
+# ---------------------------  to trackdown the error invoices      --------------------------
+log_file = os.path.join(base_path + "/" + "pdf_log.txt")
+
+
+# - ----- -- - -DEPRECATED------
 # pull file
-fp = open('./aoda.pdf', 'rb')
-password = ""
-extracted_text = ""
+# fp = open('./testpdf2.pdf', 'rb')
+# password = ""
+# extracted_text = ""
+
+
+
+# ---------------------------    PROGRAM   --------------------------
 
 # document requests objects from pdf
 # parser stores objects from pdf into document
@@ -55,6 +87,27 @@ fp.close()
 
 # print (extracted_text.encode("utf-8"))
 # The outfile should be in binary mode.
-with open('./write.txt', "wb") as my_log:
+with open('./eg2.txt', "wb") as my_log:
 	my_log.write(extracted_text.encode("utf-8"))
 print("Done !!")
+
+
+
+
+# ---------------------------   NOTES     --------------------------
+
+# directory = 'the/directory/you/want/to/use'
+
+# for filename in os.listdir(directory):
+    #   if filename.endswith(".txt"):
+    #     f = open(filename)
+    #     lines = f.read()
+    #     print(lines[10])
+    #     continue
+    # else:
+    # continue
+
+# pull file
+# fp = open('./testpdf2.pdf', 'rb')
+# password = ""
+# extracted_text = ""
