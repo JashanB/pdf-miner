@@ -8,3 +8,14 @@
 # for vendor in csv_path
 # for csv in vendor
 # loop through csv - rows and columns - use hard coded index values 
+# set path to access example
+import csv
+with open('./test_csv_1.csv', 'r') as file:
+  reader = csv.reader(file)
+  for row in reader: 
+    print("-----ROW-----")
+    print(row)
+    for index, column in enumerate(row):
+      print("----Column----")
+      print(index)
+      print(column)
