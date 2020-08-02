@@ -25,7 +25,7 @@ list_of_csv = []
 # ---------------------------  Path variables deorecated - will be vendor non-specific -------------------------
 # base_path = "./exchangeemail/Bulova"
 # base_path = "./exchangeemail/Test"
-directory = os.fsencode(f'{base_path}/temp')
+# directory = os.fsencode(f'{base_path}/temp')
 csv_directory = "./attachment_list/incoming"
 base_path = "./attachment/archive"
 # csv_directory = "./"
@@ -86,12 +86,12 @@ for vendor in os.listdir(csv_directory):
                 password = ""
                 extracted_text = ""
                 message_id = ""
-                split_file = file.split(".pdf")[0]
-                for id in list_of_msg_id:
-                    # print(id)
-                    if split_file in id:
-                        message_id = id
-                message_id += "////"
+                split_file = pdf_file_name.split(".pdf")[0]
+                # for id in list_of_msg_id:
+                #     # print(id)
+                #     if split_file in id:
+                #         message_id = id
+                # message_id += "////"
                 # print(message_id)
                 # document requests objects from pdf
                 # parser stores objects from pdf into document
