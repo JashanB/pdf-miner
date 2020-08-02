@@ -23,10 +23,11 @@ listOfPDFs = []
 list_of_msg_id = []
 list_of_csv = []
 # ---------------------------  Path variables deorecated - will be vendor non-specific -------------------------
-base_path = "./exchangeemail/Bulova"
+# base_path = "./exchangeemail/Bulova"
 # base_path = "./exchangeemail/Test"
 directory = os.fsencode(f'{base_path}/temp')
 csv_directory = "./attachment_list/incoming"
+base_path = "./attachment/archive"
 # csv_directory = "./"
 # csvFile = 'log.csv'
 # ---------------------------   Add CSV Files to List  --------------------------
@@ -79,7 +80,77 @@ for vendor in os.listdir(csv_directory):
                         subject = column
                     if index == 11:
                         email_to = column
-                
+                # for each row, access file to process and process
+                # use email month and year to access pdf file - already have vendor name 
+                fp = open(f'./{base_path}/{vendor}/{email_year}/{email_month}/{pdf_file_name}', 'rb')
+                password = ""
+                extracted_text = ""
+                message_id = ""
+                split_file = file.split(".pdf")[0]
+                for id in list_of_msg_id:
+                    # print(id)
+                    if split_file in id:
+                        message_id = id
+                message_id += "////"
+                # print(message_id)
+                # document requests objects from pdf
+                # parser stores objects from pdf into document
+
+                parser = PDFParser(fp)
+                document = PDFDocument()
+                parser.set_document(document)
+                document.set_parser(parser)
+                document.initialize('')
+
+                # Create PDFResourceManager object that stores shared resources such as fonts or images
+
+                rsrcmgr = PDFResourceManager()
+
+                # set parameters for analysis
+
+                laparams = LAParams()
+                laparams.char_margin = 1.0
+                laparams.word_margin = 1.0
+
+                # Create a PDFDevice object which translates interpreted information into desired format
+                # Device needs to be connected to resource manager to store shared resources
+                # device = PDFDevice(rsrcmgr)
+                # Extract the decive to page aggregator to get LT object elements
+                device = PDFPageAggregator(rsrcmgr, laparams=laparams)
+
+                # Create interpreter object to process page content from PDFDocument
+                # Interpreter needs to be connected to resource manager for shared resources and device
+                interpreter = PDFPageInterpreter(rsrcmgr, device)
+                extracted_text = ''
+                # for each page in pdf, process text into seperate txt file
+                for index, page in enumerate(document.get_pages()):
+                    interpreter.process_page(page)
+                    # The device renders the layout from interpreter
+                    layout = device.get_result()
+                    # look for LTTextBox LTTextLine in lt_obj list
+                    for lt_obj in layout:
+                        if isinstance(lt_obj, LTTextBox) or isinstance(lt_obj, LTTextLine):
+                            extracted_text += lt_obj.get_text()
+                    # print (extracted_text.encode("utf-8"))
+                    # The outfile should be in binary mode.
+                    # Save file as combination of file and page number 
+                    file_name = f'{file}_{index}.txt'
+                    if os.path.isfile(file_name):
+                        expand = 1
+                        while True:
+                            expand += 1
+                            new_file_name = file_name.split(".txt")[0] + str(expand) + ".txt"
+                            if os.path.isfile(new_file_name):
+                                continue
+                            else:
+                                file_name = new_file_name
+                                break
+                    # write extracted text to txt file
+                    with open(f'{supplier_path}/Text/{file_name}', "wb") as my_log:
+                        my_log.write(message_id.encode("utf-8"))
+                        my_log.write(extracted_text.encode("utf-8"))
+                # close the pdf file
+                fp.close()
 for csv in list_of_csv:
     # open csv and loop through its columns
     with open(f'{csv_directory}/{csv}', 'r') as file:
