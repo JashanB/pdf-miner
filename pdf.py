@@ -35,18 +35,51 @@ csv_directory = "./attachment_list/incoming"
 #     if filename.endswith(".csv"):
 #         list_of_csv.append(filename)
 # ---------------------------   Convert files to text for each CSV --------------------------
-# on each loop, each csv file needs to access 
+# on each loop, each row of csv file needs to access a file, extract test, write new file
 for vendor in os.listdir(csv_directory):
     for csv in vendor:
         with open(f'{csv_directory}/{vendor}/{csv}', 'r') as file:
             reader = csv.reader(file)
             for row in reader: 
-                print("-----ROW-----")
-                print(row)
+                # setup variables to collect from csv    
+                pdf_file_name = ''
+                email_year = None
+                email_month = None
+                attachment_list = None
+                message_id = None
+                Bcc = None
+                Cc = None
+                date_recieved = None
+                email_from = None
+                has_attachments = True
+                subject = None
+                email_to = None
                 for index, column in enumerate(row):
-                    print("----Column----")
-                    print(index)
-                    print(column)
+                    if index == 0:
+                        pdf_file_name = column
+                    if index == 1:
+                        email_year = column
+                    if index == 2:
+                        email_month = column
+                    if index == 3:
+                        attachment_list = column
+                    if index == 4:
+                        message_id = column
+                    if index == 5:
+                        Bcc = column
+                    if index == 6:
+                        Cc = column
+                    if index == 7:
+                        date_recieved = column
+                    if index == 8:
+                        email_from = column
+                    if index == 9:
+                        has_attachments = column
+                    if index == 10:
+                        subject = column
+                    if index == 11:
+                        email_to = column
+                
 for csv in list_of_csv:
     # open csv and loop through its columns
     with open(f'{csv_directory}/{csv}', 'r') as file:
