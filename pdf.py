@@ -26,14 +26,27 @@ list_of_csv = []
 base_path = "./exchangeemail/Bulova"
 # base_path = "./exchangeemail/Test"
 directory = os.fsencode(f'{base_path}/temp')
-csv_directory = "./"
-csvFile = 'log.csv'
+csv_directory = "./attachment_list/incoming"
+# csv_directory = "./"
+# csvFile = 'log.csv'
 # ---------------------------   Add CSV Files to List  --------------------------
-for file in os.listdir(csv_directory):
-    filename = os.fsdecode(file)
-    if filename.endswith(".csv"):
-        list_of_csv.append(filename)
+# for file in os.listdir(csv_directory):
+#     filename = os.fsdecode(file)
+#     if filename.endswith(".csv"):
+#         list_of_csv.append(filename)
 # ---------------------------   Convert files to text for each CSV --------------------------
+# on each loop, each csv file needs to access 
+for vendor in os.listdir(csv_directory):
+    for csv in vendor:
+        with open('./test_csv_1.csv', 'r') as file:
+            reader = csv.reader(file)
+            for row in reader: 
+                print("-----ROW-----")
+                print(row)
+                for index, column in enumerate(row):
+                    print("----Column----")
+                    print(index)
+                    print(column)
 for csv in list_of_csv:
     # open csv and loop through its columns
     with open(f'{csv_directory}/{csv}', 'r') as file:
