@@ -10,12 +10,17 @@
 # loop through csv - rows and columns - use hard coded index values 
 # set path to access example
 import csv
-with open('./test_csv_1.csv', 'r') as file:
-  reader = csv.reader(file)
-  for row in reader: 
-    print("-----ROW-----")
-    print(row)
-    for index, column in enumerate(row):
-      print("----Column----")
-      print(index)
-      print(column)
+import os
+# with open('./test_csv_1.csv', 'r') as file:
+#   reader = csv.reader(file)
+#   for row in reader: 
+#     print("-----ROW-----")
+#     print(row)
+#     for index, column in enumerate(row):
+#       print("----Column----")
+#       print(index)
+#       print(column)
+
+csv_directory = './csvs'
+for csv in os.listdir(csv_directory):
+  print(csv)

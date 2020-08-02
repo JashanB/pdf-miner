@@ -38,7 +38,7 @@ csv_directory = "./attachment_list/incoming"
 # on each loop, each csv file needs to access 
 for vendor in os.listdir(csv_directory):
     for csv in vendor:
-        with open('./test_csv_1.csv', 'r') as file:
+        with open(f'{csv_directory}/{vendor}/{csv}', 'r') as file:
             reader = csv.reader(file)
             for row in reader: 
                 print("-----ROW-----")
